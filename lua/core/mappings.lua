@@ -21,3 +21,7 @@ vim.keymap.set("n", "<s-Tab>", ":BufferLineCyclePrev<CR>")
 vim.keymap.set("n", "<leader>s", ":BufferLinePick<CR>")
 vim.keymap.set("n", "<leader>x", ":BufferLinePickClose<CR>")
 vim.keymap.set("n", "<c-x>", ":BufferLineCloseOthers<CR>")
+
+-- Go
+vim.keymap.set("n", "<F5>", ":GoRun<CR>")
+vim.keymap.set("n", "<F6>", ":GoDebug<CR>")
