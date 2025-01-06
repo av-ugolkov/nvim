@@ -17,20 +17,19 @@ return {
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
-				golang = { "golines" },
+				go = { "goimports", "gofmt" },
 				vue = { "eslint_d", "prettier" },
 				sql = { "sql-formatter" },
 				yaml = { "prettier" },
 				markdown = { "prettier" },
-				graphql = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
 			},
-			format_on_save = {
-			 	lsp_fallback = true,
-			 	async = false,
-			 	timeout_ms = 1000,
-			},
+			-- format_on_save = {
+			--	lsp_fallback = true,
+			--	async = false,
+			--	timeout_ms = 1000,
+			--},
 			formatters = {
 				prettier = {
 					prepend_args = { "--config-precedence", "prefer-file" },
@@ -38,7 +37,6 @@ return {
 				},
 			},
 		})
-
 		vim.keymap.set({ "n", "v" }, "<leader>ff", function()
 			conform.format({
 				lsp_fallback = true,
