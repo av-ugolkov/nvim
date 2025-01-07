@@ -7,8 +7,8 @@ return {
 		"MunifTanjim/nui.nvim",
 	},
 	config = function()
-		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", fg = "none"})
-		vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none", fg = "none"})
+		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none", fg = "none" })
+		vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none", fg = "none" })
 		vim.diagnostic.config({
 			signs = {
 				text = {
