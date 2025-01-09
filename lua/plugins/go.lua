@@ -8,6 +8,12 @@ return {
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
+		local neotree = require("neo-tree")
+		local manager = require("neo-tree.sources.manager")
+		local renderer = require("neo-tree.ui.renderer")
+
+		local state = manager.get_state("filesystem")
+		local window_exists = false
 		require("go").setup()
 
 		-- Настройка клавиш для запуска отладки
@@ -40,6 +46,24 @@ return {
 				vim.keymap.set("n", "A", ":lua require('go.alternate').switch(true, '')<CR>", {}) -- Test
 				vim.keymap.set("n", "V", ":lua require('go.alternate').switch(true, 'vsplit')<CR>", {}) -- Test Vertical
 				vim.keymap.set("n", "S", ":lua require('go.alternate').switch(true, 'split')<CR>", {}) -- Test Split
+
+				dap.listeners.after.event_initialized["dapui_config"] = function()
+					dapui.open()
+					window_exists = renderer.window_exists(state)
+					if window_exists then
+						neotree.close_all()
+					end
+				end
+				dap.listeners.before.event_terminated["dapui_config"] = function()
+					dapui.close()
+					if window_exists then vim.cmd(":Neotree show") end
+					window_exists = false
+				end
+				dap.listeners.before.event_exited["dapui_config"] = function()
+					dapui.close()
+					if window_exists then vim.cmd(":Neotree show") end
+					window_exists = false
+				end
 			end
 		})
 	end,
