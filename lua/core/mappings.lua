@@ -11,7 +11,7 @@ vim.keymap.set("n", "<c-h>", ":wincmd h<CR>")
 vim.keymap.set("n", "<c-l>", ":wincmd l<CR>")
 
 --NeoTree
-vim.keymap.set('n', '<leader>e', ':Neotree left<CR>')
+vim.keymap.set('n', '<leader>e', ':Neotree left focus<CR>')
 vim.keymap.set('n', '<leader>f', ':Neotree float focus<CR>')
 
 -- Tabs

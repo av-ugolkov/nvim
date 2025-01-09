@@ -1,42 +1,49 @@
 return {
-	"ray-x/navigator.lua",
-	dependencies = {
-		{ "hrsh7th/nvim-cmp" }, { "nvim-treesitter/nvim-treesitter" },
-		{ "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-		{
-			"ray-x/go.nvim",
-			event = { "CmdlineEnter" },
-			ft = { "go", "gomod" },
-			build = ':lua require("go.install").update_all_sync()'
-		},
-		{
-			"ray-x/lsp_signature.nvim", -- Show function signature when you type
-			event = "VeryLazy",
-			config = function() require("lsp_signature").setup() end
-		}
+	"ray-x/go.nvim",
+	dependencies = { -- optional packages
+		"ray-x/guihua.lua",
+		"neovim/nvim-lspconfig",
+		"nvim-treesitter/nvim-treesitter",
 	},
 	config = function()
+		local dap = require("dap")
+		local dapui = require("dapui")
 		require("go").setup()
-		require("navigator").setup({
-			lsp_signature_help = true, -- enable ray-x/lsp_signature
-			lsp = { format_on_save = true }
-		})
 
+		-- Настройка клавиш для запуска отладки
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = { "go" },
-			callback = function(ev)
-				-- CTRL/control keymaps
-				vim.api.nvim_buf_set_keymap(0, "n", "<C-i>", ":GoImport<CR>", {})
-				vim.api.nvim_buf_set_keymap(0, "n", "<C-b>", ":GoBuild %:h<CR>", {})
-				vim.api.nvim_buf_set_keymap(0, "n", "<C-t>", ":GoTestPkg<CR>", {})
-				vim.api.nvim_buf_set_keymap(0, "n", "<C-c>", ":GoCoverage -p<CR>", {})
+			callback = function()
+				vim.keymap.set('n', '<F5>', function()
+					local file = vim.fn.expand('%:p')
+					dap.run({
+						type = 'go',
+						name = 'Launch file',
+						request = 'launch',
+						program = file,
+					})
+					dapui.open()
+				end, { desc = "Launch debugger for the current file" })
+				vim.keymap.set('n', '<F4>', function() dap.terminate() end, { desc = "Stop debugger" })
+				vim.keymap.set('n', '<F6>', function() dap.continue() end, { desc = "The continue" })
+				vim.keymap.set('n', '<F9>', function() dap.toggle_breakpoint() end, { desc = "Set/Unset the beakpoint" })
+				vim.keymap.set('n', '<F10>', function() dap.step_over() end, { desc = "The step over" })
+				vim.keymap.set('n', '<F11>', function() dap.step_into() end, { desc = "The step into" })
+				vim.keymap.set('n', '<F12>', function() dap.step_out() end, { desc = "The step out" })
+
+				vim.keymap.set("n", "<C-i>", ":GoImport<CR>", {})
+				vim.keymap.set("n", "<C-b>", ":GoBuild %:h<CR>", {})
+				vim.keymap.set("n", "<C-t>", ":GoTestPkg<CR>", {})
+				vim.keymap.set("n", "<C-c>", ":GoCoverage -p<CR>", {})
 
 				-- Opens test files
-				vim.api.nvim_buf_set_keymap(0, "n", "A", ":lua require('go.alternate').switch(true, '')<CR>", {}) -- Test
-				vim.api.nvim_buf_set_keymap(0, "n", "V", ":lua require('go.alternate').switch(true, 'vsplit')<CR>", {}) -- Test Vertical
-				vim.api.nvim_buf_set_keymap(0, "n", "S", ":lua require('go.alternate').switch(true, 'split')<CR>", {}) -- Test Split
-			end,
-			group = vim.api.nvim_create_augroup("go_autocommands", { clear = true })
+				vim.keymap.set("n", "A", ":lua require('go.alternate').switch(true, '')<CR>", {}) -- Test
+				vim.keymap.set("n", "V", ":lua require('go.alternate').switch(true, 'vsplit')<CR>", {}) -- Test Vertical
+				vim.keymap.set("n", "S", ":lua require('go.alternate').switch(true, 'split')<CR>", {}) -- Test Split
+			end
 		})
-	end
+	end,
+	event = { "CmdlineEnter" },
+	ft = { "go", 'gomod' },
+	build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
 }
