@@ -1,6 +1,7 @@
 return {
 	"ray-x/go.nvim",
 	dependencies = { -- optional packages
+		"mfussenegger/nvim-dap",
 		"ray-x/guihua.lua",
 		"neovim/nvim-lspconfig",
 		"nvim-treesitter/nvim-treesitter",
@@ -21,14 +22,16 @@ return {
 			pattern = { "go" },
 			callback = function()
 				vim.keymap.set('n', '<F5>', function()
+					dapui.open({ reset = true })
 					local file = vim.fn.expand('%:p')
 					dap.run({
 						type = 'go',
 						name = 'Launch file',
 						request = 'launch',
 						program = file,
+						console = "internalConsole",
+						output = "stdout",
 					})
-					dapui.open()
 				end, { desc = "Launch debugger for the current file" })
 				vim.keymap.set('n', '<F4>', function() dap.terminate() end, { desc = "Stop debugger" })
 				vim.keymap.set('n', '<F6>', function() dap.continue() end, { desc = "The continue" })
