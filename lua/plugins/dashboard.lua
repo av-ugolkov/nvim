@@ -24,6 +24,9 @@ return {
 						action = "Neotree left toggle reveal",
 						key = "e",
 					},
+					{
+						desc = "Open Lazy", group = "@property", action = "Lazy", key = "l"
+					},
 				},
 			},
 		})

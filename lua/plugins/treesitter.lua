@@ -1,24 +1,35 @@
 return {
-	{
-		'nvim-treesitter/nvim-treesitter',
-		config = function()
-			require('nvim-treesitter.configs').setup({
-				ensure_installed = {
-					"go",
-					"lua",
-					"typescript",
-					"javascript",
-					"tsx",
-					"dockerfile",
-					"bash",
-					"json",
-					"html",
-					"css" },
-				auto_install = true,
-				highlight = {
-					enable = true,
-				}
-			})
-		end
-	}
+	"nvim-treesitter/nvim-treesitter",
+	tag = "v0.9.3",
+	build = ":TSUpdate",
+	dependencies = {
+		{ "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
+		{
+			"nvim-treesitter/nvim-treesitter-context", -- Show code context
+			opts = { enable = true, mode = "topline", line_numbers = true }
+		}
+	},
+	config = function()
+		local treesitter = require("nvim-treesitter.configs")
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = { "markdown" },
+			callback = function(ev)
+				-- treesitter-context is buggy with Markdown files
+				require("treesitter-context").disable()
+			end
+		})
+
+		treesitter.setup({
+			ensure_installed = {
+				"dockerfile", "gitignore", "go", "gomod", "gosum",
+				"gowork", "javascript", "json", "lua", "markdown", "proto",
+				"python", "sql", "yaml", "typescript", "tsx",
+			},
+			indent = { enable = true },
+			auto_install = true,
+			sync_install = false,
+			textobjects = { select = { enable = true, lookahead = true } }
+		})
+	end
 }

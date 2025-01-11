@@ -1,5 +1,6 @@
 return {
 	"hrsh7th/nvim-cmp",
+	tag = "v0.0.2",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp", -- cmp_nvim_lsp
 		"neovim/nvim-lspconfig", -- lspconfig
@@ -73,6 +74,9 @@ return {
 
 		local lspconfig = require("lspconfig")
 
-		lspconfig["pyright"].setup {}
+		lspconfig.lua_ls.setup({})
+		lspconfig.gopls.setup({})
+		lspconfig.ts_ls.setup({})
+		lspconfig.pyright.setup({})
 	end
 }

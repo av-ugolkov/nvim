@@ -1,8 +1,6 @@
 return {
 	"stevearc/conform.nvim",
-	-- "jose-elias-alvarez/null-ls.nvim",
-	-- "jayp0521/mason-null-ls.nvim",
-
+	tag = "v8.3.0",
 	lazy = true,
 	event = { "BufReadPre", "BufNewFile" }, -- to disable, comment this out
 	config = function()
@@ -37,7 +35,7 @@ return {
 				},
 			},
 		})
-		vim.keymap.set({ "n", "v" }, "<leader>ff", function()
+		vim.keymap.set({ "n", "v" }, "<A-f>", function()
 			conform.format({
 				lsp_fallback = true,
 				async = false,

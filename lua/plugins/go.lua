@@ -1,5 +1,6 @@
 return {
 	"ray-x/go.nvim",
+	tag = "v0.9.0",
 	dependencies = { -- optional packages
 		"mfussenegger/nvim-dap",
 		"ray-x/guihua.lua",

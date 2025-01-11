@@ -1,5 +1,6 @@
 return {
 	"folke/which-key.nvim",
+	tag = "v3.15.0",
 	event = "VeryLazy",
 	opts = {
 		-- your configuration comes here

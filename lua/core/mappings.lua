@@ -18,3 +18,18 @@ vim.keymap.set("n", "<leader>x", ":Neotree close<CR>")
 
 -- Git
 vim.keymap.set("n", "<leader>ng", ":Neogit<CR>")
+
+-- barbar
+-- Move to previous/next
+vim.keymap.set("n", "<s-Tab>", "<Cmd>BufferPrevious<CR>")
+vim.keymap.set("n", "<Tab>", "<Cmd>BufferNext<CR>")
+-- Re-order to previous/next
+vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>")
+vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<CR>")
+-- Goto buffer in position...
+vim.keymap.set("n", "<A-0>", "<Cmd>BufferLast<CR>")
+-- Pin/unpin buffer
+vim.keymap.set("n", "<A-p>", "<Cmd>BufferPin<CR>")
+-- Close buffer
+vim.keymap.set("n", "<A-c>", "<Cmd>BufferClose<CR>")
+vim.keymap.set("n", "<A-b>", "<Cmd>BufferCloseAllButCurrent<CR>")
