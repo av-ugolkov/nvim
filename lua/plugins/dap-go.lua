@@ -12,9 +12,6 @@ return {
 		local state = manager.get_state("filesystem")
 		local window_exists = false
 
-		dap.defaults.fallback.on_output = function(session, output_event)
-			--	require("dapui").elements.console
-		end -- this will set the option globally (all languages)
 		dap.set_log_level('INFO')
 		require('dap-go').setup {
 			dap_configurations = {
@@ -27,7 +24,7 @@ return {
 				},
 			},
 			delve = {
-				path = "/mnt/Data/Golang/go/bin/dlv", -- vim.fn.stdpath("data") .. '/mason/bin/dlv', --"/mnt/Data/Golang/go/bin/dlv",
+				path = "/mnt/Data/Golang/go/bin/dlv",
 				initialize_timeout_sec = 20,
 				port = "${port}",
 				args = {},
@@ -44,6 +41,7 @@ return {
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = { "go" },
 			callback = function()
+				vim.keymap.set('n', '<F4>', function() dap.terminate() end, { desc = "Stop debugger" })
 				vim.keymap.set('n', '<F5>', function()
 					local file = vim.fn.expand('%:p')
 					dap.run({
@@ -53,7 +51,6 @@ return {
 						program = file,
 					})
 				end, { desc = "Launch debugger for the current file" })
-				vim.keymap.set('n', '<F4>', function() dap.terminate() end, { desc = "Stop debugger" })
 				vim.keymap.set('n', '<F6>', function() dap.continue() end, { desc = "The continue" })
 				vim.keymap.set('n', '<F9>', function() dap.toggle_breakpoint() end, { desc = "Set/Unset the beakpoint" })
 				vim.keymap.set('n', '<F10>', function() dap.step_over() end, { desc = "The step over" })

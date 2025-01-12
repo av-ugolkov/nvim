@@ -8,7 +8,6 @@ return {
 	config = function()
 		local dapui = require('dapui')
 
-		-- Инициализация dap-ui (опционально)
 		dapui.setup({
 			layouts = {
 				{
@@ -22,8 +21,8 @@ return {
 				},
 				{
 					elements = {
-						{ id = "repl",    size = 1 },
-						{ id = "console", size = 0.5 },
+						{ id = "repl", size = 1 },
+						-- { id = "console", size = 0.5 },
 					},
 					size = 10,
 					position = "bottom",
