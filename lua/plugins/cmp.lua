@@ -73,8 +73,47 @@ return {
 
 		local lspconfig = require("lspconfig")
 
-		lspconfig.lua_ls.setup({})
-		lspconfig.gopls.setup({})
-		lspconfig.ts_ls.setup({})
+		lspconfig.lua_ls.setup({
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" }
+					}
+				}
+			}
+		})
+		lspconfig.gopls.setup({
+			cmd = { "gopls" },
+			filetypes = { "go", "gomod", "gowork", "gotmpl" },
+			settings = {
+				gopls = {
+					analyses = {
+						unusedparams = true, -- Анализ неиспользуемых параметров
+						nilness = true, -- Анализ возможного nil
+						unusedwrite = true, -- Анализ неиспользуемых записей
+					},
+					-- Настройки форматирования
+					gofumpt = true, -- Использовать gofumpt для форматирования
+					codelenses = {
+						generate = true, -- Включить Code Lens для генерации кода
+						gc_details = true, -- Показать информацию о сборке мусора
+					},
+					usePlaceholders = true, -- Автозаполнение плейсхолдерами
+					staticcheck = true, -- Включить staticcheck
+				},
+			}
+		})
+		lspconfig.ts_ls.setup({
+			settings = {
+				typescript = {
+					inlayHints = {
+						includeInlayParameterNameHints = "all",
+						includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+						includeInlayPropertyDeclarationTypeHints = true,
+						includeInlayVariableTypeHints = true
+					}
+				}
+			}
+		})
 	end
 }
