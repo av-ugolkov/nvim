@@ -1,6 +1,5 @@
 return {
 	"hrsh7th/nvim-cmp",
-	tag = "v0.0.2",
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp", -- cmp_nvim_lsp
 		"neovim/nvim-lspconfig", -- lspconfig

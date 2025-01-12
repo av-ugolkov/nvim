@@ -26,6 +26,7 @@ return {
 				"gowork", "javascript", "json", "lua", "markdown", "proto",
 				"python", "sql", "yaml", "typescript", "tsx",
 			},
+			highlight = { enable = true },
 			indent = { enable = true },
 			auto_install = true,
 			sync_install = false,

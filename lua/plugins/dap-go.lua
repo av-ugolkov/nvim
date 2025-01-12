@@ -12,7 +12,8 @@ return {
 		local state = manager.get_state("filesystem")
 		local window_exists = false
 
-		dap.set_log_level('INFO')
+		-- dap.set_log_level('DEBUG')
+
 		require('dap-go').setup {
 			dap_configurations = {
 				{
@@ -20,7 +21,8 @@ return {
 					name = "Launch file",
 					program = "${fileDirname}",
 					request = "launch",
-					mode = "auto",
+					mode = "debug",
+					outputMode = "remote",
 				},
 			},
 			delve = {
@@ -31,6 +33,7 @@ return {
 				build_flags = {},
 				detached = vim.fn.has("win32") == 0,
 				cwd = nil,
+				output_mode="remote",
 			},
 			tests = {
 				verbose = false,
@@ -43,15 +46,25 @@ return {
 			callback = function()
 				vim.keymap.set('n', '<F4>', function() dap.terminate() end, { desc = "Stop debugger" })
 				vim.keymap.set('n', '<F5>', function()
-					local file = vim.fn.expand('%:p')
 					dap.run({
 						type = 'go',
 						name = 'Launch file',
 						request = 'launch',
-						program = file,
+						program = vim.fn.expand('%:p'),
+						mode = 'debug',
+						outputMode = 'remote',
 					})
 				end, { desc = "Launch debugger for the current file" })
-				vim.keymap.set('n', '<F6>', function() dap.continue() end, { desc = "The continue" })
+				vim.keymap.set('n', '<F6>', function()
+					dap.continue({
+						type = 'go',
+						name = 'Continue',
+						request = 'continue',
+						program = vim.fn.expand('%:p'),
+						mode = 'debug',
+						outputMode = 'remote',
+					})
+				end, { desc = "The continue" })
 				vim.keymap.set('n', '<F9>', function() dap.toggle_breakpoint() end, { desc = "Set/Unset the beakpoint" })
 				vim.keymap.set('n', '<F10>', function() dap.step_over() end, { desc = "The step over" })
 				vim.keymap.set('n', '<F11>', function() dap.step_into() end, { desc = "The step into" })
