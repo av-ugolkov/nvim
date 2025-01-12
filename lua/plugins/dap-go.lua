@@ -12,9 +12,9 @@ return {
 		local state = manager.get_state("filesystem")
 		local window_exists = false
 
-		--dap.defaults.fallback.on_output = function(session, output_event)
-		--	require("dapui").elements.console
-		--end -- this will set the option globally (all languages)
+		dap.defaults.fallback.on_output = function(session, output_event)
+			--	require("dapui").elements.console
+		end -- this will set the option globally (all languages)
 		dap.set_log_level('INFO')
 		require('dap-go').setup {
 			dap_configurations = {
@@ -27,7 +27,7 @@ return {
 				},
 			},
 			delve = {
-				path = vim.fn.stdpath("data") .. '/mason/bin/dlv', --"/mnt/Data/Golang/go/bin/dlv",
+				path = "/mnt/Data/Golang/go/bin/dlv", -- vim.fn.stdpath("data") .. '/mason/bin/dlv', --"/mnt/Data/Golang/go/bin/dlv",
 				initialize_timeout_sec = 20,
 				port = "${port}",
 				args = {},
@@ -51,8 +51,6 @@ return {
 						name = 'Launch file',
 						request = 'launch',
 						program = file,
-						output = "stdout",
-						console = "internalConsole",
 					})
 				end, { desc = "Launch debugger for the current file" })
 				vim.keymap.set('n', '<F4>', function() dap.terminate() end, { desc = "Stop debugger" })

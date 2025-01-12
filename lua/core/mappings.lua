@@ -1,6 +1,10 @@
 -- Leader
 vim.g.mapleader = " "
 
+-- Tools
+vim.keymap.set("n", "<leader>ol", ":Lazy<CR>", { desc = "Open Lazy" })
+vim.keymap.set("n", "<leader>om", ":Mason<CR>", { desc = "Open Mason" })
+
 -- Insert
 vim.keymap.set("i", "jj", "<Esc>")
 
