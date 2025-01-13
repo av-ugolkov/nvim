@@ -25,8 +25,8 @@ vim.keymap.set("n", "<leader>ng", ":Neogit<CR>")
 
 -- barbar
 -- Move to previous/next
-vim.keymap.set("n", "<s-Tab>", "<Cmd>BufferPrevious<CR>")
-vim.keymap.set("n", "<Tab>", "<Cmd>BufferNext<CR>")
+vim.keymap.set("n", "<A-,>", "<Cmd>BufferPrevious<CR>")
+vim.keymap.set("n", "<A-.>", "<Cmd>BufferNext<CR>")
 -- Re-order to previous/next
 vim.keymap.set("n", "<A-<>", "<Cmd>BufferMovePrevious<CR>")
 vim.keymap.set("n", "<A->>", "<Cmd>BufferMoveNext<CR>")

@@ -1,6 +1,5 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	tag = "v0.9.3",
 	build = ":TSUpdate",
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-textobjects" }, -- Syntax aware text-objects
