@@ -33,7 +33,7 @@ return {
 				build_flags = {},
 				detached = vim.fn.has("win32") == 0,
 				cwd = nil,
-				output_mode="remote",
+				output_mode = "remote",
 			},
 			tests = {
 				verbose = false,
