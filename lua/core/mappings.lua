@@ -1,5 +1,6 @@
 -- Leader
 vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
 
 -- Tools
 vim.keymap.set("n", "<leader>ol", ":Lazy<CR>", { desc = "Open Lazy" })
